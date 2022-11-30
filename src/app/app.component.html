@@ -3,3 +3,5 @@
 <!-- $event es la palabra reservada para recibir parametrosk -->
 <app-img (loaded)="onLoaded($event)" [img]="imgParent"></app-img>
 
+<app-product [product]="product" *ngFor="let product of products"></app-product>
+
