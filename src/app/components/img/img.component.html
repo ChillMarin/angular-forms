@@ -1,5 +1,13 @@
 <!-- El evento (load) es nativo de img y nos dice si cargo correctamente -->
-<img width="200" (load)="imgLoaded()" (error)="imgError()" [src]="img" *ngIf="img; else elseImg">
+<img
+  width="200"
+  (load)="imgLoaded()"
+  (error)="imgError()"
+  [src]="img"
+  *ngIf="img; else elseImg"
+/>
+
+<h3>{{ counter }}</h3>
 <ng-template #elseImg>
-  <img width="200" [src]=imageDefault>
+  <img width="200" [src]="imageDefault" />
 </ng-template>
