@@ -20,8 +20,8 @@ export class ImgComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy
 	@Output() loaded = new EventEmitter<string>()
 	// https://www.w3schools.com/w3css/img_lights.jpg
 	imageDefault = 'https://www.m2crowd.com/core/i/placeholder.png';
-  counter = 0;
-  counterFn:number | undefined;
+  // counter = 0;
+  // counterFn:number | undefined;
 
 	constructor() {
     //before and during render
@@ -44,11 +44,11 @@ export class ImgComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy
   ngOnInit() {
     //after render
     //async -- once time
-    console.log('ngOnInit','imgValue =>',this.img);
-    this.counterFn = window.setInterval(() => {
-      this.counter++;
-      console.log('run counter',this.counter);
-      }, 1000);
+    // console.log('ngOnInit','imgValue =>',this.img);
+    // this.counterFn = window.setInterval(() => {
+    //   this.counter++;
+    //   console.log('run counter',this.counter);
+    //   }, 1000);
     }
 
   ngAfterViewInit() {
@@ -61,8 +61,8 @@ export class ImgComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy
   ngOnDestroy() {
     //delete
     //async -- once time
-    console.log('ngOnDestroy');
-    window.clearInterval(this.counterFn);
+  //   console.log('ngOnDestroy');
+  //   window.clearInterval(this.counterFn);
   }
 
 	imgError() {
