@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product.model';
+import { StoreService } from '../../services/store.service';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent {
+export class ProductsComponent implements OnInit{
   myShoppingCart: Product[] = [];
   total = 0;
   products: Product[] = [
@@ -48,11 +49,20 @@ export class ProductsComponent {
 		},
 	];
 
+  constructor(private storeService: StoreService) {
+    this.myShoppingCart = this.storeService.getShoppingCart();
+  }
+
+  ngOnInit(): void {
+  }
+
   onAddToShoppingCart(product: Product) {
-    console.log('onAddToCart',product);
-    this.myShoppingCart.push(product);
+    //console.log('onAddToCart',product);
+   // this.myShoppingCart.push(product);
     //reduce() es un metodo de los arreglos que recibe una funcion para sumar los valores de un arreglo
-    this.total = this.myShoppingCart.reduce((acc, product) => acc + product.price, 0);
+    //this.total = this.myShoppingCart.reduce((acc, product) => acc + product.price, 0);
+    this.storeService.addProduct(product);
+    this.total = this.storeService.getTotal();
   }
 
 }
