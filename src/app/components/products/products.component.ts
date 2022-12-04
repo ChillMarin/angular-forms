@@ -7,6 +7,8 @@ import { Product } from 'src/app/models/product.model';
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent {
+  myShoppingCart: Product[] = [];
+  total = 0;
   products: Product[] = [
 		{
 			id: '1',
@@ -45,4 +47,12 @@ export class ProductsComponent {
 			image: 'https://static.platzi.com/media/user_upload/glasses-05350737-5831-4c98-be55-824399206dba.jpg'
 		},
 	];
+
+  onAddToShoppingCart(product: Product) {
+    console.log('onAddToCart',product);
+    this.myShoppingCart.push(product);
+    //reduce() es un metodo de los arreglos que recibe una funcion para sumar los valores de un arreglo
+    this.total = this.myShoppingCart.reduce((acc, product) => acc + product.price, 0);
+  }
+
 }
