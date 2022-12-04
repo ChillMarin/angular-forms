@@ -6,6 +6,9 @@
 <p>
   Today: {{ today | date: 'dd/MM/yyyy' }}
 </p>
+<p>
+  Time Ago: {{ date | timeAgo }}
+</p>
 
 <div class="products--grid">
   <!-- Escucha el evento con addedProduct y ejecuta la funcion on addtoShoppingCart enviando el evento que es el producto -->

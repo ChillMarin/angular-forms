@@ -14,7 +14,7 @@ export class ProductsComponent implements OnInit{
   total = 0;
   products: Product[] = [];
   today = new Date();
-  date = new Date(2022,1,21);
+  date = new Date(2020,1,21);
 
    //aqui se declaran los servicios que se usan en el componente
   constructor(private storeService: StoreService, private productsService: ProductsService) {
