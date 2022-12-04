@@ -1,7 +1,7 @@
 <hr>
 <app-img [img]="product.image"></app-img>
 <h2>
-  {{product.price}}
+  {{product.price | currency: 'USD': true}}
 </h2>
 <p>{{product.title}}</p>
 <button (click)="onAddToCart()">Add to Cart</button>

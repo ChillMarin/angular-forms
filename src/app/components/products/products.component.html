@@ -1,4 +1,11 @@
-<p>Cantidad de productos agregar {{ myShoppingCart.length }} y el total es ${{total}}</p>
+<p>
+  Cantidad de productos agregar {{ myShoppingCart.length }} y el total es ${{
+    total
+  }}
+</p>
+<p>
+  Today: {{ today | date: 'dd/MM/yyyy' }}
+</p>
 
 <div class="products--grid">
   <!-- Escucha el evento con addedProduct y ejecuta la funcion on addtoShoppingCart enviando el evento que es el producto -->
