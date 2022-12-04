@@ -9,9 +9,11 @@ import { Product } from '../../models/product.model';
 export class ProductComponent {
   @Input() product: Product= {
     id: '',
-    name: '',
+    title: '',
     image: '',
     price: 0,
+    description: '',
+    category: ''
   };
   //Emite un evento cuando se agrega un producto al carrito
   @Output() addedProduct = new EventEmitter<Product> ();
