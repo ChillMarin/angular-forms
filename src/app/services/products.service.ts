@@ -12,6 +12,6 @@ export class ProductsService {
 
   getAllProducts() {
     //Aqui le decimos que lo que solicitamos es un arreglo de productos. Tambien puedo decir qeu me devuleve no un array de productos como esta ahorita si no que me devuelve un objeto de tipo Product y que es un arreglo de productos usando el operador <Product[]> sin "[]" seria solo 1 producto
-    return this.http.get<Product[]>('https://fakestoreapi.com/products');
+    return this.http.get<Product[]>('https://young-sands-07814.herokuapp.com/api/products/');
   }
 }

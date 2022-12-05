@@ -10,10 +10,13 @@ export class ProductComponent {
   @Input() product: Product= {
     id: '',
     title: '',
-    image: '',
+    images:[],
     price: 0,
     description: '',
-    category: ''
+    category: {
+      id: '',
+      name: ''
+    }
   };
   //Emite un evento cuando se agrega un producto al carrito
   @Output() addedProduct = new EventEmitter<Product> ();
