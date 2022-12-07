@@ -20,10 +20,15 @@ export class ProductComponent {
   };
   //Emite un evento cuando se agrega un producto al carrito
   @Output() addedProduct = new EventEmitter<Product> ();
+  @Output() showProduct = new EventEmitter<string> ();
 
   onAddToCart() {
     //envia el producto al componente padre
     this.addedProduct.emit(this.product);
+  }
+
+  onShowDetail(){
+    this.showProduct.emit(this.product.id);
   }
 
 }
