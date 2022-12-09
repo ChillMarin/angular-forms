@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product.model';
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+// install swiper modules
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 import { StoreService } from '../../services/store.service';
 import { ProductsService } from '../../services/products.service';
@@ -14,6 +17,17 @@ export class ProductsComponent implements OnInit{
   total = 0;
   products: Product[] = [];
   showProductDetail = false;
+  productChosen: Product = {
+    id: '',
+    title: '',
+    images:[],
+    price: 0,
+    description: '',
+    category: {
+      id: '',
+      name: ''
+    }
+  };
 
    //aqui se declaran los servicios que se usan en el componente
   constructor(private storeService: StoreService, private productsService: ProductsService) {
@@ -42,10 +56,30 @@ export class ProductsComponent implements OnInit{
   }
 
   onShowDetail(id: string) {
+    //en caso de que den dos veces al botón solo ocultara los detalles(para no ir a darle al botón de cerrar)
+    if(this.productChosen.id != '' && this.productChosen.id == id && this.showProductDetail==true){
+      this.showProductDetail = false;
+      return;
+    }
+
+    //en caso de que seleccionen el mismo producto ya no hay necesidad de hacer la petición de nuevo y solo vuelve a mostrar el panel
+    if(this.productChosen.id != '' && this.productChosen.id == id && this.showProductDetail==false){
+      this.showProductDetail = true;
+      return;
+    }
+    //en caso que le den al botón de ver detalles mientras ya están abiertos los de un producto diferente cierra el panel de detalles
+    if(this.productChosen.id != '' && this.productChosen.id != id && this.showProductDetail==true){
+      this.showProductDetail = false;
+    }
+
     this.productsService.getProduct(id)
     .subscribe(data => {
       console.log('product',data);
+      //guardamos el producto en la varible
+      this.productChosen = data;
+      this.toggleProductDetail();
     })
   }
+
 
 }
