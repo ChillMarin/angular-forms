@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product, CreateProductDTO } from 'src/app/models/product.model';
+import { Product, CreateProductDTO, UpdateProductDTO } from 'src/app/models/product.model';
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 // install swiper modules
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
@@ -94,6 +94,39 @@ export class ProductsComponent implements OnInit{
       this.products.unshift(data);
     })
   }
+
+  updateProduct() {
+    const changes: UpdateProductDTO = {
+      title: 'change title',
+      price: 1000,
+      description: 'change description'
+
+    }
+    const id = this.productChosen.id;
+    this.productsService.update(id, changes)
+    .subscribe(data => {
+      const productIndex = this.products.findIndex(item => item.id === this.productChosen.id);
+      this.products[productIndex] = data;
+      this.productChosen = data;
+    });
+  }
+
+  // updateProduct() {
+  //   const changes = {
+  //     title: 'Nuevo Producto',
+  //   }
+
+  //   const id = this.product.id;
+  //   this.productsService.update(id, changes).subscribe(
+  //     (product: Product) => {
+  //       const productId = this.products.findIndex(p => p.id === id);
+  //       this.products[productId] = product;
+  //       this.product = product;
+  //      console.log(product);
+  //   });
+
+  // }
+
 
 
 }

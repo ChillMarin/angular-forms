@@ -17,3 +17,15 @@ export interface Product{
 export interface CreateProductDTO extends Omit<Product, 'id' | 'category'> {
   categoryId: number;
 }
+
+//Asi quedan las interfaces opciones pero no usamos esta para no repetir codigo
+// export interface UpdateProductDTO{
+//   title?: string;
+//   price?: number;
+//   images?: string[];
+//   description?: string;
+//   categoryId?: Category;
+// }
+
+// El partial lo que define es que todo lo extendemos es opcional es decir le incluye el ? a cada propiedad
+export interface UpdateProductDTO extends Partial<CreateProductDTO>{ }
