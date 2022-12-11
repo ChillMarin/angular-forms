@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/models/product.model';
+import { Product, CreateProductDTO } from 'src/app/models/product.model';
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 // install swiper modules
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
@@ -78,6 +78,20 @@ export class ProductsComponent implements OnInit{
       //guardamos el producto en la varible
       this.productChosen = data;
       this.toggleProductDetail();
+    })
+  }
+
+  createNewProduct() {
+    const product: CreateProductDTO = {
+      title: 'Nuevo producto',
+      images: ['https://picsum.photos/200/300'],
+      price: 100,
+      description: 'Nuevo producto',
+      categoryId: 2
+    }
+    this.productsService.create(product).subscribe(data => {
+      console.log('new product created', data);
+      this.products.unshift(data);
     })
   }
 
