@@ -29,4 +29,9 @@ export class ProductsService {
   update(id: string, dto:UpdateProductDTO){
     return this.http.put<Product>(`${this.apiUrl}/${id}`, dto);
   }
+
+  delete(id:string){
+    // En este caso la api devuelve un boolean de que paso, no todas las APIS lo hacen
+    return this.http.delete<boolean>(`${this.apiUrl}/${id}`);
+  }
 }

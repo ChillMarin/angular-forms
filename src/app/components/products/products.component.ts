@@ -127,6 +127,26 @@ export class ProductsComponent implements OnInit{
 
   // }
 
-
+  deleteProduct(){
+    const id = this.productChosen.id;
+    // aqui no se usa data porque no nos devuelve nada asi que solo ejecutamos en el preview de la peticion se recibe es un booleano
+    this.productsService.delete(id)
+    .subscribe(() => {
+      const productIndex = this.products.findIndex(item => item.id === this.productChosen.id);
+      this.products.splice(productIndex, 1);
+      this.productChosen = {
+        id: '',
+        title: '',
+        images:[],
+        price: 0,
+        description: '',
+        category: {
+          id: '',
+          name: ''
+        }
+      };
+      this.toggleProductDetail();
+    })
+  }
 
 }
