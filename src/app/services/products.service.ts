@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Product, CreateProductDTO, UpdateProductDTO } from '../models/product.model';
 
@@ -11,14 +11,24 @@ export class ProductsService {
 
   constructor( private http: HttpClient) { }
 
-  getAllProducts() {
+// esta seria la otra manera de traerme productos dinamicamente si no se sabe cuantos son y se quiere traerlos de a 10 por ejemplo y se quiere ir paginando o si quiero que me traiga todos no le envio valores porque son opciones
+  getAllProducts(limit?: number, offset?: number) {
     //Aqui le decimos que lo que solicitamos es un arreglo de productos. Tambien puedo decir qeu me devuleve no un array de productos como esta ahorita si no que me devuelve un objeto de tipo Product y que es un arreglo de productos usando el operador <Product[]> sin "[]" seria solo 1 producto
-    return this.http.get<Product[]>(this.apiUrl);
+    let params = new HttpParams();
+    if (limit && offset) {
+      params = params.set('limit', limit);
+      params = params.append('offset', offset);
+    }
+    return this.http.get<Product[]>(this.apiUrl,{params});
   }
 
   getProduct(id: string) {
     //aqui lo tipamos como 1 producto
     return this.http.get<Product>(`${this.apiUrl}/${id}`);
+  }
+
+  getProductsByPage(limit:number, offset:number){
+    return this.http.get<Product[]>(`${this.apiUrl}`,{params:{limit,offset}});
   }
 
   create(data: CreateProductDTO){

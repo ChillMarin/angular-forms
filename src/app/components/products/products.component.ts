@@ -28,6 +28,8 @@ export class ProductsComponent implements OnInit{
       name: ''
     }
   };
+  limit = 10;
+  offset = 0;
 
    //aqui se declaran los servicios que se usan en el componente
   constructor(private storeService: StoreService, private productsService: ProductsService) {
@@ -36,10 +38,7 @@ export class ProductsComponent implements OnInit{
 
   ngOnInit(): void {
     //Como la solicitud es asincrona, se usa el metodo subscribe para recibir la respuesta
-    this.productsService.getAllProducts()
-    .subscribe(data => {
-      this.products = data;
-    })
+    this.loadMore()
   }
 
   onAddToShoppingCart(product: Product) {
@@ -146,6 +145,15 @@ export class ProductsComponent implements OnInit{
         }
       };
       this.toggleProductDetail();
+    })
+  }
+
+  loadMore(){
+    this.productsService.getProductsByPage(this.limit,this.offset)
+    .subscribe(data => {
+      //Aqui como estamos es cargando mas usamos concat para concatener los nuevos productos con los que ya teniamos pero genera un nuevo array y no modifica el array original
+      this.products = this.products.concat(data);
+      this.offset +=this.limit;
     })
   }
 
