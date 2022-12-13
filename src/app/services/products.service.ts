@@ -15,7 +15,7 @@ export class ProductsService {
   getAllProducts(limit?: number, offset?: number) {
     //Aqui le decimos que lo que solicitamos es un arreglo de productos. Tambien puedo decir qeu me devuleve no un array de productos como esta ahorita si no que me devuelve un objeto de tipo Product y que es un arreglo de productos usando el operador <Product[]> sin "[]" seria solo 1 producto
     let params = new HttpParams();
-    if (limit && offset) {
+    if (limit !== undefined && offset !== undefined) {
       params = params.set('limit', limit);
       params = params.append('offset', offset);
     }
