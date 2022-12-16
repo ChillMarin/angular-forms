@@ -4,6 +4,8 @@
   {{product.price | currency: 'USD': true}}
 </h2>
 <p>{{product.title}}</p>
+<!-- Aqui decimos ?? es decir, si la propiedad es null o undefined coloca un string vacio -->
+<p>{{product.taxes ?? ''}}</p>
 <p appHighlight>{{product.description}}</p>
 <button (click)="onShowDetail()">Ver detalle</button>
 <button (click)="onAddToCart()">Add to Cart</button>

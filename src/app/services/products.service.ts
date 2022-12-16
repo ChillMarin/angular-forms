@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 //Libreria para manejrar errores de rxjs
-import { retry, catchError } from 'rxjs/operators';
+import { retry, catchError, map } from 'rxjs/operators';
 // para enviar errores al fronted
 import { throwError } from 'rxjs';
 
@@ -23,7 +23,18 @@ export class ProductsService {
       params = params.set('limit', limit);
       params = params.append('offset', offset);
     }
-    return this.http.get<Product[]>(this.apiUrl,{params});
+    // el map es agarra los valores del observable para transformarlos y products es la data que nos estan enviando o que estamos recibiendo y el 2do map es el nativo de javascript ojo el 1er map es el que importamos de rxjs
+    //Aqui lo que hacemos es agarrar la data y agregarle un nuevo campo llamado taxes que es el iva del producto eso es lo qeu llamamos (Transformacion de datos)
+    return this.http.get<Product[]>(this.apiUrl, { params })
+    .pipe(
+      retry(3),
+      map(products => products.map(item => {
+        return {
+          ...item,
+          taxes: .19 * item.price
+        }
+      }))
+    );
   }
 
   getProduct(id: string) {

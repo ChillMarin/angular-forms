@@ -44,6 +44,7 @@ export class ProductsComponent implements OnInit{
 
   ngOnInit(): void {
     //Como la solicitud es asincrona, se usa el metodo subscribe para recibir la respuesta
+    //Cargamos todos los productos
     this.loadMore()
   }
 
@@ -179,7 +180,7 @@ export class ProductsComponent implements OnInit{
   }
 
   loadMore(){
-    this.productsService.getProductsByPage(this.limit,this.offset)
+    this.productsService.getAllProducts(this.limit,this.offset)
     .subscribe(data => {
       //Aqui como estamos es cargando mas usamos concat para concatener los nuevos productos con los que ya teniamos pero genera un nuevo array y no modifica el array original
       this.products = this.products.concat(data);
