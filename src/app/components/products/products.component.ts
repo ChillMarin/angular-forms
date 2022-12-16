@@ -13,10 +13,13 @@ import { ProductsService } from '../../services/products.service';
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit{
+  //array con los productos del carrito
   myShoppingCart: Product[] = [];
   total = 0;
+  //array con todos los productos
   products: Product[] = [];
   showProductDetail = false;
+  //variables del producto escogido en en el boton de "ver detalle"
   productChosen: Product = {
     id: '',
     title: '',
@@ -28,8 +31,11 @@ export class ProductsComponent implements OnInit{
       name: ''
     }
   };
+  //Variables para limitar cantidad de productos y hacer paginacion
   limit = 10;
   offset = 0;
+  //para definir status de las peticiones
+  statusDetail: 'loading' | 'sucess' | 'error' | 'init' = 'init';
 
    //aqui se declaran los servicios que se usan en el componente
   constructor(private storeService: StoreService, private productsService: ProductsService) {
@@ -55,6 +61,7 @@ export class ProductsComponent implements OnInit{
   }
 
   onShowDetail(id: string) {
+    this.statusDetail = 'loading';
     //en caso de que den dos veces al botón solo ocultara los detalles(para no ir a darle al botón de cerrar)
     if(this.productChosen.id != '' && this.productChosen.id == id && this.showProductDetail==true){
       this.showProductDetail = false;
@@ -70,15 +77,38 @@ export class ProductsComponent implements OnInit{
     if(this.productChosen.id != '' && this.productChosen.id != id && this.showProductDetail==true){
       this.showProductDetail = false;
     }
-
+    // manera vieja de manipular errores pero en es la que usan en el curso de platzi
+    // this.productsService.getProduct(id)
+    // .subscribe(data => {
+    //   console.log('product',data);
+    //   //guardamos el producto en la varible
+    //   this.productChosen = data;
+    //   this.toggleProductDetail();
+    //   this.statusDetail = 'sucess';
+    //   //ahora maneramos los errores si es que hay
+    // }, error => {
+    //   console.log('error', error);
+    //   this.statusDetail = 'error';
+    // });
+    //La manera correcta actual de manejar errores con rxjs
     this.productsService.getProduct(id)
-    .subscribe(data => {
-      console.log('product',data);
-      //guardamos el producto en la varible
-      this.productChosen = data;
-      this.toggleProductDetail();
-    })
+    .subscribe({
+      next:(resp) => {
+        console.log('product',resp);
+        //guardamos el producto en la varible
+        this.productChosen = resp;
+        this.toggleProductDetail();
+        this.statusDetail = 'sucess';
+      },
+      error: (error) => {
+        console.log('error', error);
+        this.statusDetail = 'error';
+      }
+    });
+
   }
+
+
 
   createNewProduct() {
     const product: CreateProductDTO = {

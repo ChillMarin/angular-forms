@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
+//Libreria para manejrar errores de rxjs
+import { retry, catchError } from 'rxjs/operators';
+// para enviar errores al fronted
+import { throwError } from 'rxjs';
 
 import { Product, CreateProductDTO, UpdateProductDTO } from '../models/product.model';
 
@@ -24,7 +28,18 @@ export class ProductsService {
 
   getProduct(id: string) {
     //aqui lo tipamos como 1 producto
-    return this.http.get<Product>(`${this.apiUrl}/${id}`);
+    return this.http.get<Product>(`${this.apiUrl}/${id}123123`)
+    .pipe(
+     catchError((error: HttpErrorResponse) => {
+      if (error.status === 500){
+        // Asi es como se deberian de hacer el throw de los errores que te envia el error completo en la consola
+        return throwError(() => new Error ('Error en el servidor'));
+      }
+      if (error.status === 404){
+        return throwError('El producto no existe');
+      }
+      return throwError('Error desconocido');
+    }))
   }
 
   getProductsByPage(limit:number, offset:number){
