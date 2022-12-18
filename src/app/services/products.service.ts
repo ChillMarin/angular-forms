@@ -70,4 +70,38 @@ export class ProductsService {
     // En este caso la api devuelve un boolean de que paso, no todas las APIS lo hacen
     return this.http.delete<boolean>(`${this.apiUrl}/${id}`);
   }
+
+  /*
+  Dejo los codigos de los servicios que hice para que se entienda mejor como se usa el operador zip y el switchMap desde el lado del servicio
+      fetchReadAndUpdate(id: string, dto:UpdateProductDTO) {
+    return zip(
+      this.getProduct(id),
+      this.update(id, dto)
+    );
+  }
+
+  getProductAndupdate(id: string, dto:UpdateProductDTO){
+    return this.getProduct(id)
+      .pipe(
+        switchMap((product) => this.update(product.id, dto))
+      )
+  }
+
+Y tambien como los llamo del lado del componente:
+
+  readAndUpdate(id: string){
+    this.productsService.getProductAndupdate(id, {title: 'change'})
+      .subscribe(data => {
+        console.log(data);
+      });
+
+    this.productsService.fetchReadAndUpdate(id, {title: 'change'})
+    .subscribe(response => {
+      const product = response[0];
+      const update = response[1];
+    })
+
+  }
+
+  */
 }

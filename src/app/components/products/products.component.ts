@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Product, CreateProductDTO, UpdateProductDTO } from 'src/app/models/product.model';
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import { switchMap } from 'rxjs/operators';
+import {zip} from 'rxjs';
 // install swiper modules
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
@@ -108,6 +110,30 @@ export class ProductsComponent implements OnInit{
     });
 
   }
+
+  readAndUpdate(id:string){
+    this.productsService.getProduct(id)
+    .pipe(
+      // Asi quedaria cuando seria 1 sola peticion pero para el ejemplo que queremos hacer varias peticiones evitando un call back hell quedaria con varios switchMap
+      // switchMap((product)=>{return this.productsService.update(product.id,{title:'change'})})
+      switchMap((product)=>this.productsService.update(product.id,{title:'change'})),
+      // Todos estos reciben una respuesta la cual podria seguir concatenando pero aqui lo dejo asi como para ver como quedaria
+      switchMap((product)=>this.productsService.update(product.id,{description:'change'})),
+      switchMap((product)=>this.productsService.update(product.id,{price:25})),)
+      .subscribe(data => {
+        console.log('update', data);
+      });
+      //ahora el zip lo que nos define es tener 2 peticiones comprimidas en una sola y nos devuelve un arreglo con los resultados de las 2 peticiones en el orden que se hicieron las peticiones y no en el orden que llegan las respuestas de las peticiones es recomendable colocar toda esta logica en un servicio y no en el componente
+      zip(
+        this.productsService.getProduct('id'),
+        this.productsService.update('id',{title:'change'})
+      )
+      .subscribe(response=>{
+        const read = response[0];
+        const update = response[1];
+      })
+  }
+
 
 
 
