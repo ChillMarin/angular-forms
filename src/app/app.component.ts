@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { Product } from './models/product.model';
+
+import { AuthService } from './services/auth.service';
+import { UsersService } from './services/users.service';
 
 @Component({
 	selector: 'app-root',
@@ -10,7 +12,17 @@ export class AppComponent {
 	title = 'my-store';
 	imgParent = '';
   showImg = true;
-	
+
+  constructor(private authService: AuthService, private usersService: UsersService) {
+    this.authService.profile().subscribe(
+      (user) => {
+        console
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 
 	onLoaded(img: string) {
 		console.log('Image loaded! del padre', img);
@@ -18,6 +30,24 @@ export class AppComponent {
 
   toggleImg() {
     this.showImg = !this.showImg;
+  }
+
+  createUser() {
+    this.usersService.create({
+      name: 'Jamon',
+      email: 'jamon@mail.com',
+      password:'12345678'
+    }).subscribe( rta=> {
+      console.log(rta);
+    }
+    );
+  }
+
+  login () {
+    this.authService.login('jamon@mail.com','12345678').subscribe( rta=> {
+      console.log(rta.access_token);
+    }
+    );
   }
 }
 

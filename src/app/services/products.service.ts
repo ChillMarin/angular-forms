@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 //Libreria para manejrar errores de rxjs
 import { retry, catchError, map } from 'rxjs/operators';
 // para enviar errores al fronted
@@ -11,7 +12,7 @@ import { Product, CreateProductDTO, UpdateProductDTO } from '../models/product.m
   providedIn: 'root'
 })
 export class ProductsService {
-  private apiUrl = 'https://young-sands-07814.herokuapp.com/api/products';
+  private apiUrl = `${environment.API_URL}/api/products`;
 
   constructor( private http: HttpClient) { }
 
