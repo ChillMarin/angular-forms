@@ -12,16 +12,10 @@ export class AppComponent {
 	title = 'my-store';
 	imgParent = '';
   showImg = true;
+  token = '';
 
   constructor(private authService: AuthService, private usersService: UsersService) {
-    this.authService.profile().subscribe(
-      (user) => {
-        console
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    
   }
 
 	onLoaded(img: string) {
@@ -46,8 +40,16 @@ export class AppComponent {
   login () {
     this.authService.login('jamon@mail.com','12345678').subscribe( rta=> {
       console.log(rta.access_token);
+      this.token = rta.access_token;
     }
     );
+  }
+
+  getProfile(){
+    this.authService.profile(this.token)
+    .subscribe(profile => {
+      console.log(profile);
+    })
   }
 }
 
