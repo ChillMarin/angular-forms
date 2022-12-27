@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter  } from '@angular/core';
 import { Product, CreateProductDTO, UpdateProductDTO } from 'src/app/models/product.model';
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import { switchMap } from 'rxjs/operators';
@@ -14,12 +14,14 @@ import { ProductsService } from '../../services/products.service';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit{
+export class ProductsComponent {
   //array con los productos del carrito
   myShoppingCart: Product[] = [];
   total = 0;
   //array con todos los productos
-  products: Product[] = [];
+  @Input() products: Product[] = [];
+  @Output() loadMoreProducts: EventEmitter<string> = new EventEmitter<string>();
+
   showProductDetail = false;
   //variables del producto escogido en en el boton de "ver detalle"
   productChosen: Product = {
@@ -33,21 +35,12 @@ export class ProductsComponent implements OnInit{
       name: ''
     }
   };
-  //Variables para limitar cantidad de productos y hacer paginacion
-  limit = 10;
-  offset = 0;
   //para definir status de las peticiones
   statusDetail: 'loading' | 'sucess' | 'error' | 'init' = 'init';
 
    //aqui se declaran los servicios que se usan en el componente
   constructor(private storeService: StoreService, private productsService: ProductsService) {
     this.myShoppingCart = this.storeService.getShoppingCart();
-  }
-
-  ngOnInit(): void {
-    //Como la solicitud es asincrona, se usa el metodo subscribe para recibir la respuesta
-    //Cargamos todos los productos
-    this.loadMore()
   }
 
   onAddToShoppingCart(product: Product) {
@@ -111,28 +104,28 @@ export class ProductsComponent implements OnInit{
 
   }
 
-  readAndUpdate(id:string){
-    this.productsService.getProduct(id)
-    .pipe(
-      // Asi quedaria cuando seria 1 sola peticion pero para el ejemplo que queremos hacer varias peticiones evitando un call back hell quedaria con varios switchMap
-      // switchMap((product)=>{return this.productsService.update(product.id,{title:'change'})})
-      switchMap((product)=>this.productsService.update(product.id,{title:'change'})),
-      // Todos estos reciben una respuesta la cual podria seguir concatenando pero aqui lo dejo asi como para ver como quedaria
-      switchMap((product)=>this.productsService.update(product.id,{description:'change'})),
-      switchMap((product)=>this.productsService.update(product.id,{price:25})),)
-      .subscribe(data => {
-        console.log('update', data);
-      });
-      //ahora el zip lo que nos define es tener 2 peticiones comprimidas en una sola y nos devuelve un arreglo con los resultados de las 2 peticiones en el orden que se hicieron las peticiones y no en el orden que llegan las respuestas de las peticiones es recomendable colocar toda esta logica en un servicio y no en el componente
-      zip(
-        this.productsService.getProduct('id'),
-        this.productsService.update('id',{title:'change'})
-      )
-      .subscribe(response=>{
-        const read = response[0];
-        const update = response[1];
-      })
-  }
+  // readAndUpdate(id:string){
+  //   this.productsService.getProduct(id)
+  //   .pipe(
+  //     // Asi quedaria cuando seria 1 sola peticion pero para el ejemplo que queremos hacer varias peticiones evitando un call back hell quedaria con varios switchMap
+  //     // switchMap((product)=>{return this.productsService.update(product.id,{title:'change'})})
+  //     switchMap((product)=>this.productsService.update(product.id,{title:'change'})),
+  //     // Todos estos reciben una respuesta la cual podria seguir concatenando pero aqui lo dejo asi como para ver como quedaria
+  //     switchMap((product)=>this.productsService.update(product.id,{description:'change'})),
+  //     switchMap((product)=>this.productsService.update(product.id,{price:25})),)
+  //     .subscribe(data => {
+  //       console.log('update', data);
+  //     });
+  //     //ahora el zip lo que nos define es tener 2 peticiones comprimidas en una sola y nos devuelve un arreglo con los resultados de las 2 peticiones en el orden que se hicieron las peticiones y no en el orden que llegan las respuestas de las peticiones es recomendable colocar toda esta logica en un servicio y no en el componente
+  //     zip(
+  //       this.productsService.getProduct('id'),
+  //       this.productsService.update('id',{title:'change'})
+  //     )
+  //     .subscribe(response=>{
+  //       const read = response[0];
+  //       const update = response[1];
+  //     })
+  // }
 
 
 
@@ -205,13 +198,17 @@ export class ProductsComponent implements OnInit{
     })
   }
 
-  loadMore(){
-    this.productsService.getAllProducts(this.limit,this.offset)
-    .subscribe(data => {
-      //Aqui como estamos es cargando mas usamos concat para concatener los nuevos productos con los que ya teniamos pero genera un nuevo array y no modifica el array original
-      this.products = this.products.concat(data);
-      this.offset +=this.limit;
-    })
-  }
+  // loadMore(){
+  //   this.productsService.getAllProducts(this.limit,this.offset)
+  //   .subscribe(data => {
+  //     //Aqui como estamos es cargando mas usamos concat para concatener los nuevos productos con los que ya teniamos pero genera un nuevo array y no modifica el array original
+  //     this.products = this.products.concat(data);
+  //     this.offset +=this.limit;
+  //   })
+  // }
+
+  loadMore() {
+    this.loadMoreProducts.emit();
+}
 
 }
