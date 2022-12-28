@@ -21,11 +21,12 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'category',
+    //:id es un parámetro que se puede pasar a la ruta para validar el id de la categoria que queremos mostrar
+    path: 'category/:id',
     component: CategoryComponent
   },
   {
-    path: 'mycart',
+    path: 'mycart/:id',
     component: MycartComponent
   },
   {

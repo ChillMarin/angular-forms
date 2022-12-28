@@ -12,7 +12,7 @@ import { Product, CreateProductDTO, UpdateProductDTO } from '../models/product.m
   providedIn: 'root'
 })
 export class ProductsService {
-  private apiUrl = `${environment.API_URL}/api/products`;
+  private apiUrl = `${environment.API_URL}/api`;
 
   constructor( private http: HttpClient) { }
 
@@ -26,7 +26,7 @@ export class ProductsService {
     }
     // el map es agarra los valores del observable para transformarlos y products es la data que nos estan enviando o que estamos recibiendo y el 2do map es el nativo de javascript ojo el 1er map es el que importamos de rxjs
     //Aqui lo que hacemos es agarrar la data y agregarle un nuevo campo llamado taxes que es el iva del producto eso es lo qeu llamamos (Transformacion de datos)
-    return this.http.get<Product[]>(this.apiUrl, { params })
+    return this.http.get<Product[]>(`${this.apiUrl}/products`, { params })
     .pipe(
       retry(3),
       map(products => products.map(item => {
@@ -40,7 +40,7 @@ export class ProductsService {
 
   getProduct(id: string) {
     //aqui lo tipamos como 1 producto
-    return this.http.get<Product>(`${this.apiUrl}/${id}123123`)
+    return this.http.get<Product>(`${this.apiUrl}/products/${id}123123`)
     .pipe(
      catchError((error: HttpErrorResponse) => {
       if (error.status === 500){
@@ -54,8 +54,18 @@ export class ProductsService {
     }))
   }
 
+  getByCategory(categoryId: string,limit:number, offset:number){
+    let params = new HttpParams();
+    if (limit !== undefined && offset !== undefined) {
+      params = params.set('limit', limit);
+      params = params.append('offset', offset);
+    }
+
+    return this.http.get<Product[]>(`${this.apiUrl}/categories/${categoryId}/products`,{params:{limit,offset}});
+  }
+
   getProductsByPage(limit:number, offset:number){
-    return this.http.get<Product[]>(`${this.apiUrl}`,{params:{limit,offset}});
+    return this.http.get<Product[]>(`${this.apiUrl}/products`,{params:{limit,offset}});
   }
 
   create(data: CreateProductDTO){
@@ -64,12 +74,12 @@ export class ProductsService {
   }
 
   update(id: string, dto:UpdateProductDTO){
-    return this.http.put<Product>(`${this.apiUrl}/${id}`, dto);
+    return this.http.put<Product>(`${this.apiUrl}/products/${id}`, dto);
   }
 
   delete(id:string){
     // En este caso la api devuelve un boolean de que paso, no todas las APIS lo hacen
-    return this.http.delete<boolean>(`${this.apiUrl}/${id}`);
+    return this.http.delete<boolean>(`${this.apiUrl}/products/${id}`);
   }
 
   /*
