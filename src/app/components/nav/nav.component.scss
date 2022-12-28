@@ -47,7 +47,7 @@
       transform: translateX(0);
     }
   }
-} 
+}
 .hide-mobile {
   display: none;
   box-shadow: 0px 2px 5px rgb(black, .2);
@@ -70,6 +70,12 @@
         margin: 0 .2em;
         color: inherit;
         text-decoration: none;
+        padding: .2em .5em;
+        &.active {
+          border: 1px solid rgb(#ACD9B2, .2);
+          color: #ACD9B2;
+          border-radius: 6px;
+        }
       }
     }
   }
