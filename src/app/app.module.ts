@@ -21,6 +21,7 @@ import { MycartComponent } from './pages/mycart/mycart.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { RecoveryComponent } from './pages/recovery/recovery.component';
+import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { RecoveryComponent } from './pages/recovery/recovery.component';
     LoginComponent,
     RegisterComponent,
     RecoveryComponent,
+    ProductDetailComponent,
   ],
   imports: [
     BrowserModule,
