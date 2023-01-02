@@ -20,6 +20,13 @@ export class ProductsComponent {
   total = 0;
   //array con todos los productos
   @Input() products: Product[] = [];
+  // @Input() productId: string | null = null;
+  @Input()
+  set productId(productId: string | null) {
+    if (productId) {
+      this.onShowDetail(productId);
+    }
+  }
   @Output() loadMoreProducts: EventEmitter<string> = new EventEmitter<string>();
 
   showProductDetail = false;
@@ -87,6 +94,7 @@ export class ProductsComponent {
     //   this.statusDetail = 'error';
     // });
     //La manera correcta actual de manejar errores con rxjs
+
     this.productsService.getProduct(id)
     .subscribe({
       next:(resp) => {
@@ -101,7 +109,6 @@ export class ProductsComponent {
         this.statusDetail = 'error';
       }
     });
-
   }
 
   // readAndUpdate(id:string){

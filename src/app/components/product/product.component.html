@@ -1,11 +1,18 @@
-<hr>
-<app-img *ngIf="product.images.length > 0" [img]="product.images[0]"></app-img>
+<hr />
+<a [routerLink]="['/product', product.id]">
+  <app-img
+    *ngIf="product.images.length > 0"
+    [img]="product.images[0]"
+  ></app-img>
+</a>
 <h2>
-  {{product.price | currency: 'USD': true}}
+  {{ product.price | currency : "USD" : true }}
 </h2>
-<p>{{product.title}}</p>
+<p>{{ product.title }}</p>
 <!-- Aqui decimos ?? es decir, si la propiedad es null o undefined coloca un string vacio -->
-<p>{{product.taxes ?? ''}}</p>
-<p appHighlight>{{product.description}}</p>
-<button (click)="onShowDetail()">Ver detalle</button>
+<p>{{ product.taxes ?? "" }}</p>
+<p appHighlight>{{ product.description }}</p>
+<!-- <button (click)="onShowDetail()">Ver detalle</button> -->
+<!-- estamos diciendo que con el query param envie la variblae product con el id del producto -->
+<a routerLink="." [queryParams]="{ product: product.id }"> Ver detalle</a>
 <button (click)="onAddToCart()">Add to Cart</button>
