@@ -21,8 +21,7 @@ export class ProductsComponent {
   //array con todos los productos
   @Input() products: Product[] = [];
   // @Input() productId: string | null = null;
-  @Input()
-  set productId(productId: string | null) {
+  @Input() set productId(productId: string | null) {
     if (productId) {
       this.onShowDetail(productId);
     }
@@ -67,7 +66,7 @@ export class ProductsComponent {
     this.statusDetail = 'loading';
     //en caso de que den dos veces al botón solo ocultara los detalles(para no ir a darle al botón de cerrar)
     if(this.productChosen.id != '' && this.productChosen.id == id && this.showProductDetail==true){
-      this.showProductDetail = false;
+      this.showProductDetail = true;
       return;
     }
 
@@ -101,7 +100,7 @@ export class ProductsComponent {
         console.log('product',resp);
         //guardamos el producto en la varible
         this.productChosen = resp;
-        this.toggleProductDetail();
+        this.showProductDetail=true;
         this.statusDetail = 'sucess';
       },
       error: (error) => {
