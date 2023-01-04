@@ -211,7 +211,7 @@ export class ProductsComponent {
   //     this.products = this.products.concat(data);
   //     this.offset +=this.limit;
   //   })
-  // }
+  // }a
 
   loadMore() {
     this.loadMoreProducts.emit();

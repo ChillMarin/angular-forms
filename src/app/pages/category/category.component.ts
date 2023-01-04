@@ -15,6 +15,8 @@ export class CategoryComponent implements OnInit {
   products: Product[] = [];
   limit = 10;
   offset = 0;
+  // id del producto que recibo por url
+  productId : string | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -44,6 +46,19 @@ export class CategoryComponent implements OnInit {
     )
     .subscribe((data) => {
       this.products = data;
+    });
+
+    // recibir parametros via url por query params
+    this.queryParams();
+  }
+
+  queryParams(){
+    //recibir parametros via url por query params
+    this.route.queryParamMap.subscribe((params) => {
+      //'product' es el nombre del parametro que se envia por url
+      this.productId = params.get('product');
+      console.log('qlqlqlqlqlql',this.productId);
+
     });
   }
 }
