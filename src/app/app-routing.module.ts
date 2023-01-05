@@ -53,7 +53,12 @@ const routes: Routes = [
       },
     ]
   },
-
+  // llamamos el modulo de cms y esto lo que nos habilita poder hacer lazyLoading y Code Splitting
+  {
+    path: 'cms',
+    loadChildren: () => import('./cms/cms.module').then(m => m.CmsModule),
+  },
+  // se coloca afuera para que sea global
   {
     path: '**',
     component: NotFoundComponent,
