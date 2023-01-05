@@ -6,23 +6,23 @@ import { SwiperModule } from 'swiper/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ImgComponent } from './components/img/img.component';
-import { ProductComponent } from './components/product/product.component';
-import { ProductsComponent } from './components/products/products.component';
-import { NavComponent } from './components/nav/nav.component';
+import { ImgComponent } from './website/components/img/img.component';
+import { ProductComponent } from './website/components/product/product.component';
+import { ProductsComponent } from './website/components/products/products.component';
+import { NavComponent } from './website/components/nav/nav.component';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
-import { HighlightDirective } from './directives/highlight.directive';
+import { HighlightDirective } from './website/directives/highlight.directive';
 import { TimeInterceptor } from './interceptors/time.interceptor';
 import { TokenInterceptor } from './interceptors/token.interceptor';
-import { HomeComponent } from './pages/home/home.component';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { CategoryComponent } from './pages/category/category.component';
-import { MycartComponent } from './pages/mycart/mycart.component';
-import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
-import { RecoveryComponent } from './pages/recovery/recovery.component';
-import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
-
+import { HomeComponent } from './website/pages/home/home.component';
+import { NotFoundComponent } from './website/pages/not-found/not-found.component';
+import { CategoryComponent } from './website/pages/category/category.component';
+import { MycartComponent } from './website/pages/mycart/mycart.component';
+import { LoginComponent } from './website/pages/login/login.component';
+import { RegisterComponent } from './website/pages/register/register.component';
+import { RecoveryComponent } from './website/pages/recovery/recovery.component';
+import { ProductDetailComponent } from './website/pages/product-detail/product-detail.component';
+import { LayoutComponent } from './website/components/layout/layout.component';
 
 @NgModule({
   declarations: [
@@ -41,18 +41,19 @@ import { ProductDetailComponent } from './pages/product-detail/product-detail.co
     RegisterComponent,
     RecoveryComponent,
     ProductDetailComponent,
+    LayoutComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    SwiperModule
+    SwiperModule,
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: TimeInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}
+    { provide: HTTP_INTERCEPTORS, useClass: TimeInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

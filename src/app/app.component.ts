@@ -5,7 +5,8 @@ import { UsersService } from './services/users.service';
 
 @Component({
 	selector: 'app-root',
-	templateUrl: './app.component.html',
+  // modificamos esto para decirle que use el template que creamos
+	template: '<router-outlet></router-outlet>',
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
@@ -15,7 +16,7 @@ export class AppComponent {
   token = '';
 
   constructor(private authService: AuthService, private usersService: UsersService) {
-    
+
   }
 
 	onLoaded(img: string) {

@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomeComponent } from './pages/home/home.component';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { CategoryComponent } from './pages/category/category.component';
-import { MycartComponent } from './pages/mycart/mycart.component';
-import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
-import { RecoveryComponent } from './pages/recovery/recovery.component';
-import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
+import { LayoutComponent } from './website/components/layout/layout.component';
+import { HomeComponent } from './website/pages/home/home.component';
+import { NotFoundComponent } from './website/pages/not-found/not-found.component';
+import { CategoryComponent } from './website/pages/category/category.component';
+import { MycartComponent } from './website/pages/mycart/mycart.component';
+import { LoginComponent } from './website/pages/login/login.component';
+import { RegisterComponent } from './website/pages/register/register.component';
+import { RecoveryComponent } from './website/pages/recovery/recovery.component';
+import { ProductDetailComponent } from './website/pages/product-detail/product-detail.component';
 
 const routes: Routes = [
   // Esto es lo que hace es una redirección a la ruta home si el path es vacio
@@ -19,41 +20,48 @@ const routes: Routes = [
   // },
   {
     path: '',
-    component: HomeComponent
+    component: LayoutComponent,
+    children: [
+      {
+        path: '',
+        component: HomeComponent,
+      },
+      {
+        //:id es un parámetro que se puede pasar a la ruta para validar el id de la categoria que queremos mostrar
+        path: 'category/:id',
+        component: CategoryComponent,
+      },
+      {
+        path: 'mycart/:id',
+        component: MycartComponent,
+      },
+      {
+        path: 'login',
+        component: LoginComponent,
+      },
+      {
+        path: 'register',
+        component: RegisterComponent,
+      },
+      {
+        path: 'recovery',
+        component: RecoveryComponent,
+      },
+      {
+        path: 'product/:id',
+        component: ProductDetailComponent,
+      },
+    ]
   },
-  {
-    //:id es un parámetro que se puede pasar a la ruta para validar el id de la categoria que queremos mostrar
-    path: 'category/:id',
-    component: CategoryComponent
-  },
-  {
-    path: 'mycart/:id',
-    component: MycartComponent
-  },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'register',
-    component: RegisterComponent
-  },
-  {
-    path: 'recovery',
-    component: RecoveryComponent
-  },
-  {
-    path: 'product/:id',
-    component: ProductDetailComponent
-  },
+
   {
     path: '**',
-    component: NotFoundComponent
-  }
+    component: NotFoundComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
