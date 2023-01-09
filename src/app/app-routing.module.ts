@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
+//PreLoadAllModulo usada para poder precargar todos los modulos
 import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 
 import { NotFoundComponent } from './not-found/not-found.component';
 import { CustomPreloadService } from './services/custom-preload.service';
+import { QuicklinkStrategy } from 'ngx-quicklink';
 
 const routes: Routes = [
   // Esto es lo que hace es una redirección a la ruta home si el path es vacio
@@ -34,7 +36,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes,{
     //Pre carga de modulos
-    preloadingStrategy: CustomPreloadService,
+    preloadingStrategy: QuicklinkStrategy,
   })],
   exports: [RouterModule],
 })
