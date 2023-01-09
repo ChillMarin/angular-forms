@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 
 import { NotFoundComponent } from './not-found/not-found.component';
+import { CustomPreloadService } from './services/custom-preload.service';
 
 const routes: Routes = [
   // Esto es lo que hace es una redirección a la ruta home si el path es vacio
@@ -15,6 +16,9 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./website/website.module').then(m => m.WebsiteModule),
+    data:{
+      preload: true
+    }
   },
   {
     path: 'cms',
@@ -28,7 +32,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{
+    //Pre carga de modulos
+    preloadingStrategy: CustomPreloadService,
+  })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
