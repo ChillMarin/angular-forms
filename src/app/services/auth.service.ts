@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
-import { switchMap, tap } from 'rxjs';
+import { BehaviorSubject, switchMap, tap } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { Auth } from '../models/auth.model';
@@ -15,6 +15,10 @@ export class AuthService {
   private headers: HttpHeaders = new HttpHeaders();
 
   private apiUrl = `${environment.API_URL}/api/auth`;
+  // aqui declaramos que user va a hacer un observable y con estado inicial null
+  private user = new BehaviorSubject<User | null>(null);
+  //aqui permitimos que otras componentes se puedan subscribir a user, se usa el signo $ porque asi se reconocen los observadorees por convencion
+  user$ = this.user.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -25,7 +29,7 @@ export class AuthService {
     // el pipe nos permite ejecutar un proceso sin tener que modificar el observable que se esta retornando es decir no necesita un return y el tap es un operador que nos permite ejecutar un proceso sin tener que modificar el observable que se esta retornando es decir no necesita un return
     return this.http.post<Auth>(`${this.apiUrl}/login`, { email, password })
     .pipe(
-      tap(response => this.tokenService.saveToken(response.access_token))
+      tap(response => this.tokenService.saveToken(response.access_token)),
     )
     ;
   }
@@ -51,7 +55,10 @@ export class AuthService {
       //   Authorization: `Bearer ${token}`,
       //   // 'Content-type': 'application/json'
       // }
-    });
+    }).pipe(
+      // tap va es a ejecutar solo una accion que seria modificar esa data una vez recibido el perfil
+      tap(user => this.user.next(user))
+    );
   }
 
   loginAndGet(email: string, password: string) {
@@ -60,5 +67,10 @@ export class AuthService {
       switchMap(() => this.getProfile()),
     )
   }
+
+  logout() {
+    this.tokenService.removeToken();
+  }
+
 
 }

@@ -15,7 +15,8 @@ export class ProfileComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.authService.getProfile()
+    //obtenemos el user pero ojo solo recibimos la data pero no es necesario un unsubscribe me parece
+    this.authService.user$
     .subscribe(user => {
       this.user = user;
     });
