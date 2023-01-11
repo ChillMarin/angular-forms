@@ -15,7 +15,11 @@ import { AuthService } from '../services/auth.service';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private tokenService: TokenService, private router: Router, private authService:AuthService) {}
+  constructor(
+    private tokenService: TokenService,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -25,7 +29,7 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-      //aqui obtemos el token para saber si el usuario esta logeado
+    //aqui obtemos el token para saber si el usuario esta logeado
     // const token = this.tokenService.getToken();
     // if (!token) {
     //   this.router.navigate(['/']);
@@ -40,7 +44,7 @@ export class AuthGuard implements CanActivate {
           this.router.navigate(['/']);
           return false;
         }
-          return true;
+        return true;
       })
     );
   }

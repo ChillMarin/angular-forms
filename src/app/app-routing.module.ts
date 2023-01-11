@@ -6,6 +6,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { CustomPreloadService } from './services/custom-preload.service';
 import { QuicklinkStrategy } from 'ngx-quicklink';
 
+import { AdminGuard } from './guards/admin.guard';
+
 const routes: Routes = [
   // Esto es lo que hace es una redirección a la ruta home si el path es vacio
   // {
@@ -24,6 +26,8 @@ const routes: Routes = [
   },
   {
     path: 'cms',
+    // solo puede acceder a esta ruta si cumple con el guardian
+    canActivate: [AdminGuard],
     loadChildren: () => import('./cms/cms.module').then(m => m.CmsModule),
   },
   // se coloca afuera para que sea global
