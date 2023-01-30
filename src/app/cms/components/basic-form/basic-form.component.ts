@@ -26,6 +26,10 @@ export class BasicFormComponent implements OnInit {
   categoryField = new FormControl('category-4');
   tagsField = new FormControl(['tag-1', 'tag-3']);
 
+  agreeField = new FormControl(false);
+  genderField = new FormControl('');
+  zoneField = new FormControl('');
+
   ngOnInit(): void {
     // El controlador de formulario tiene un observable que se dispara cada vez que cambia el valor del campo
     this.nameField.valueChanges.subscribe((value) => {
