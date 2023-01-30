@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-basic-form',
@@ -9,7 +9,7 @@ import { FormControl } from '@angular/forms';
 export class BasicFormComponent implements OnInit {
 
   // Esto es un controlador de formulario, que se encarga de manejar el estado de un campo de formulario
-  nameField = new FormControl('Soy un control o valor por default');
+  nameField = new FormControl('', [Validators.required, Validators.maxLength(10)]);
   emailField = new FormControl('');
   phoneField = new FormControl('');
   colorField = new FormControl('#000000');
@@ -40,6 +40,13 @@ export class BasicFormComponent implements OnInit {
 
   getNameValue(){
     console.log(this.nameField.value);
-    
+  }
+
+  get isNameFieldValid(){
+    return this.nameField.valid && this.nameField.touched;
+  }
+
+  get isNameFieldInvalid(){
+    return this.nameField.invalid && this.nameField.touched;
   }
 }
