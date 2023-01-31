@@ -1,52 +1,113 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-basic-form',
   templateUrl: './basic-form.component.html',
-  styleUrls: ['./basic-form.component.scss']
+  styleUrls: ['./basic-form.component.scss'],
 })
 export class BasicFormComponent implements OnInit {
+ 
+  // le digo q no va a ser nulo
+  form!: FormGroup;
 
-  // Esto es un controlador de formulario, que se encarga de manejar el estado de un campo de formulario
-  nameField = new FormControl('', [Validators.required, Validators.maxLength(10)]);
-  emailField = new FormControl('');
-  phoneField = new FormControl('');
-  colorField = new FormControl('#000000');
-  dateField = new FormControl('');
-  monthField = new FormControl('');
-  ageField = new FormControl(12);
-  passwordField = new FormControl('');
-  priceField = new FormControl('50');
-  weekField = new FormControl('');
-  timefield = new FormControl('');
-  searchField = new FormControl('');
-  descriptionField = new FormControl('');
-
-  categoryField = new FormControl('category-4');
-  tagsField = new FormControl(['tag-1', 'tag-3']);
-
-  agreeField = new FormControl(false);
-  genderField = new FormControl('');
-  zoneField = new FormControl('');
+  constructor(private formBuilder: FormBuilder) {
+    // mandamos a contruir el formulario
+    this.BuildForm();
+  }
 
   ngOnInit(): void {
-    // El controlador de formulario tiene un observable que se dispara cada vez que cambia el valor del campo
-    this.nameField.valueChanges.subscribe((value) => {
+    this.nameField?.valueChanges.subscribe((value) => {
       console.log(value);
-    }
-    );
+    });
+
+    // aqui nos enviaria todos los cambios del formulario con cualquier cambio que se haga
+    // this.form.valueChanges
+    // .subscribe(value => {
+    //   console.log(value);
+    // });
   }
 
-  getNameValue(){
-    console.log(this.nameField.value);
+  getNameValue() {
+    console.log(this.nameField?.value);
   }
 
-  get isNameFieldValid(){
-    return this.nameField.valid && this.nameField.touched;
+  save(event: Event) {
+    // Validacion de formulario
+    // Aqui marcamos todos los input como que fueron tocados para que muestren sus errores en caso de  que no lso tocaron
+    this.form.markAllAsTouched()
+    // entonces si hay un campo con error no se va a enviar el formularop
+		if (this.form.invalid) { return }
+    // si todo ok enviamos 
+		console.log(this.form.value)
   }
 
-  get isNameFieldInvalid(){
-    return this.nameField.invalid && this.nameField.touched;
+  private BuildForm() {
+    // haciendo esto evitamos crear FormControl por cada campo
+    this.form = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.maxLength(10)]],
+      email: [''],
+      phone: ['', Validators.required],
+      color: ['#000000'],
+      date: [''],
+      age: [12],
+      category: [''],
+      tag: [''],
+      agree: [false],
+      gender: [''],
+      zone: [''],
+    });
+  }
+
+  get nameField() {
+    return this.form.get('name');
+  }
+
+  get isNameFieldValid() {
+    return this.nameField?.touched && this.nameField.valid;
+  }
+
+  get isNameFieldInvalid() {
+    return this.nameField?.touched && this.nameField.invalid;
+  }
+
+  get emailField() {
+    return this.form.get('email');
+  }
+
+  get phoneField() {
+    return this.form.get('phone');
+  }
+
+  get colorField() {
+    return this.form.get('color');
+  }
+
+  get dateField() {
+    return this.form.get('date');
+  }
+
+  get ageField() {
+    return this.form.get('age');
+  }
+
+  get categoryField() {
+    return this.form.get('category');
+  }
+
+  get tagField() {
+    return this.form.get('tag');
+  }
+
+  get agreeField() {
+    return this.form.get('agree');
+  }
+
+  get genderField() {
+    return this.form.get('gender');
+  }
+
+  get zoneField() {
+    return this.form.get('zone');
   }
 }
