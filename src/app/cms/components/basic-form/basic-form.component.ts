@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
+import {
+  FormControl,
+  Validators,
+  FormGroup,
+  FormBuilder,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-basic-form',
@@ -7,7 +12,6 @@ import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms'
   styleUrls: ['./basic-form.component.scss'],
 })
 export class BasicFormComponent implements OnInit {
- 
   // le digo q no va a ser nulo
   form!: FormGroup;
 
@@ -35,25 +39,35 @@ export class BasicFormComponent implements OnInit {
   save(event: Event) {
     // Validacion de formulario
     // Aqui marcamos todos los input como que fueron tocados para que muestren sus errores en caso de  que no lso tocaron
-    this.form.markAllAsTouched()
+    this.form.markAllAsTouched();
     // entonces si hay un campo con error no se va a enviar el formularop
-		if (this.form.invalid) { return }
-    // si todo ok enviamos 
-		console.log(this.form.value)
+    if (this.form.invalid) {
+      return;
+    }
+    // si todo ok enviamos
+    console.log(this.form.value);
   }
 
   private BuildForm() {
     // haciendo esto evitamos crear FormControl por cada campo
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(10)]],
-      email: [''],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(10),
+          Validators.minLength(3),
+          Validators.pattern(/^[a-zA-Z]+$/),
+        ],
+      ],
+      email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
       color: ['#000000'],
       date: [''],
-      age: [12],
+      age: [18, [Validators.min(18), Validators.max(60)]],
       category: [''],
       tag: [''],
-      agree: [false],
+      agree: [false, Validators.requiredTrue], // true Tiene que ser true
       gender: [''],
       zone: [''],
     });
