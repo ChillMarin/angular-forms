@@ -16,6 +16,14 @@ import { ProductDetailComponent } from './pages/product-detail/product-detail.co
 import { LayoutComponent } from './components/layout/layout.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+//material
+import {MatFormFieldModule} from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+import {MatCardModule} from '@angular/material/card';
+
 @NgModule({
   declarations: [
     NavComponent,
@@ -34,6 +42,12 @@ import { ProfileComponent } from './pages/profile/profile.component';
     SwiperModule,
     SharedModule,
     QuicklinkModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatCardModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
 })
 export class WebsiteModule {}

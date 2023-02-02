@@ -1,0 +1,49 @@
+
+mat-card-title{
+  margin-bottom: 40px;
+}
+
+input{
+  font-size: 1rem;
+  padding-top: 20px;
+  margin-bottom: 8px;
+}
+
+.error{
+  margin-top: -10px;
+}
+  // --background: linear-gradient(90deg, #1c3643, #273b47 25%, #1e5372);
+form {
+  width: 90%;
+  margin: 0px auto;
+  position: relative;
+  top: 20px;
+  mat-form-field {
+    width: 100%;
+  }
+  mat-card-actions {
+    display: flex;
+    justify-content: center;
+  }
+}
+/* Medium only */
+@media screen and (min-width: 40em) and (max-width: 63.9375em) {
+  form{
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+  }
+}
+
+/* Large and up */
+@media screen and (min-width: 64em) {
+  form {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+  }
+}
