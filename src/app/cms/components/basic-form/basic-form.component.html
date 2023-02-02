@@ -1,34 +1,24 @@
 <form [formGroup]="form" (ngSubmit)="save($event)">
   <div formGroupName="fullName">
-    <p>
-      Name: {{ nameField?.value }} {{ nameField?.valid }}
-      <input
-        [class.is-valid]="isNameFieldValid"
-        [class.is-invalid]="isNameFieldInvalid"
-        type="text"
-        formControlName="name"
-      />
-      <button [disabled]="nameField?.invalid" (click)="getNameValue()">
-        Get value
-      </button>
-    </p>
+    <mat-form-field appearance="fill" [class.invalido]="isNameFieldInvalid">
+      <mat-label>Name: {{ nameField?.value }} {{ nameField?.valid }}</mat-label>
+      <input matInput formControlName="name">
+      <mat-icon *ngIf="isNameFieldValid" matSuffix>done</mat-icon>
+      <mat-icon *ngIf="isNameFieldInvalid" matSuffix>close</mat-icon>
+    </mat-form-field>
+  
     <div class="messages" [class.active]="isNameFieldInvalid">
-      <p>
-        <strong *ngIf="nameField?.hasError('required')"
-          >Este campo es requerido</strong
-        >
-      </p>
-      <p>
-        <strong *ngIf="nameField?.hasError('maxlength')"
-          >debe tener maximo 10 c</strong
-        >
-      </p>
-      <p>
-        <strong *ngIf="nameField?.hasError('pattern')"
-          >No debe tener carac..</strong
-        >
-      </p>
-    </div>
+      <mat-error *ngIf="nameField?.hasError('required')" [class.is-invalid]="isNameFieldInvalid">
+        Este campo es requerido
+      </mat-error>
+      <mat-error *ngIf="nameField?.hasError('maxlength')">
+        debe tener maximo 10 c
+      </mat-error>
+      <mat-error *ngIf="nameField?.hasError('pattern')">
+        No debe tener carac..
+      </mat-error>
+  </div>
+
     <p>
       Last Name: {{ lastField?.value }} {{ lastField?.valid }}
       <input type="text" formControlName="last" />

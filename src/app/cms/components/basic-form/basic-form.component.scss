@@ -3,7 +3,17 @@
   transition: all 0.5s ease-in;
   &.active {
       opacity: 1;
+      color: red;
   }
+
+  &.is-invalid {
+    border-color: red;
+    background-size: 25px;
+}
+&.is-valid {
+    background: url("https://assets.digitalocean.com/labs/icons/hand-thumbs-up.svg") no-repeat 95% 50% lightgreen;
+    background-size: 25px;
+}
 }
 
 input {
@@ -17,9 +27,25 @@ input {
   &.is-invalid {
       background: url("https://assets.digitalocean.com/labs/icons/exclamation-triangle-fill.svg") no-repeat 95% 50% rgb(233, 103, 39);
       background-size: 25px;
+      border-color: red;
   }
   &.is-valid {
       background: url("https://assets.digitalocean.com/labs/icons/hand-thumbs-up.svg") no-repeat 95% 50% lightgreen;
       background-size: 25px;
   }
+}
+
+.matf{
+  padding: 0 !important;
+}
+
+
+form {
+  mat-form-field {
+    
+  }
+}
+
+.invalido{
+  color: red;
 }
