@@ -55,6 +55,7 @@
               matInput
               type="password"
             />
+            <!-- form.error es un objeto que tiene todos los errores entonces si hay un error en el form se muestra el error-->
             <div *ngIf="form.get('confirmPassword')?.touched && form.errors">
               <mat-error *ngIf="form.hasError('match_password')">
                 No hace match

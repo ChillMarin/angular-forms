@@ -42,6 +42,7 @@ export class RegisterComponent implements OnExit {
         confirmPassword: ['', [Validators.required, ]],
       },
       {
+        // para poder hacer la validaciones grupales
         validators: MyValidators.matchPasswords,
       }
     );

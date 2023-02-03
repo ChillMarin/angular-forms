@@ -21,6 +21,7 @@ export class MyValidators {
   }
 
   static matchPasswords(control: AbstractControl) {
+    //obtenemos el valor del password y del confirmPassword ya que son campos del formulario
     const password = control.get('password')?.value;
     const confirmPassword = control.get('confirmPassword')?.value;
     if (password !== confirmPassword) {
