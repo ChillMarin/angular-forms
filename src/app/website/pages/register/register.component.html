@@ -64,6 +64,26 @@
           </mat-form-field>
         </div>
       </div>
+      <!-- Radio buttons -->
+      <div class="row">
+        <div class="col-xs">
+          <mat-radio-group formControlName="type" aria-label="Select an option">
+            <mat-radio-button value="Company">Company</mat-radio-button>
+            <mat-radio-button value="customer">Customer</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+      <!-- Company Name el cual valido que aparezca solo si seleccionan company-->
+      <mat-form-field *ngIf="form.controls['type'].value==='Company'">
+        <mat-label>Company Name</mat-label>
+        <input
+          placeholder="Compañia"
+          formControlName="companyName"
+          matInput
+          type="text"
+        />
+      </mat-form-field>
+      <!-- Button -->
     </mat-card-content>
     <mat-card-actions>
       <button [disabled]="form.invalid" mat-raised-button type="submit">

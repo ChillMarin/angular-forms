@@ -23,6 +23,7 @@ import {MatFormFieldModule} from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
+import {MatRadioModule} from '@angular/material/radio'
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import {MatCardModule} from '@angular/material/card';
     MatIconModule,
     MatCardModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatRadioModule
   ],
 })
 export class WebsiteModule {}
