@@ -5,7 +5,10 @@
 export const environment = {
   production: false,
   // API_URL: 'https://young-sands-07814.herokuapp.com',
+  // ultima usada 'https://damp-spire-59848.herokuapp.com
   API_URL: 'https://damp-spire-59848.herokuapp.com',
+  //ultima
+  //https://damp-spire-59848.herokuapp.com/api/categories
 };
 
 /*

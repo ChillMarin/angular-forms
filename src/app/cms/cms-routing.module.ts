@@ -5,6 +5,7 @@ import { TasksComponent } from './pages/tasks/tasks.component';
 import { GridComponent } from './pages/grid/grid.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { BasicFormComponent } from './components/basic-form/basic-form.component';
+import { CategoryComponent } from './pages/category/category.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
       {
         path: 'basic-form',
         component: BasicFormComponent,
+      },
+      {
+        path: 'category',
+        component: CategoryComponent,
       }
     ]
   }

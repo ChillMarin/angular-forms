@@ -7,12 +7,16 @@ import { CmsRoutingModule } from './cms-routing.module';
 import { TasksComponent } from './pages/tasks/tasks.component';
 import { GridComponent } from './pages/grid/grid.component';
 import { LayoutComponent } from './components/layout/layout.component';
+import { CategoryComponent } from './pages/category/category.component';
 
 //material
 import { BasicFormComponent } from './components/basic-form/basic-form.component';
 import {MatFormFieldModule} from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
+
 
 
 
@@ -22,7 +26,8 @@ import {MatIconModule} from '@angular/material/icon';
     TasksComponent,
     GridComponent,
     LayoutComponent,
-    BasicFormComponent
+    BasicFormComponent,
+    CategoryComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +36,9 @@ import {MatIconModule} from '@angular/material/icon';
     MatSlideToggleModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule,
+    MatButtonModule
   ]
 })
 export class CmsModule { }
