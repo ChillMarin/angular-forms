@@ -27,20 +27,9 @@
       </div>
       <div class="row">
         <div class="col-xs">
-          <mat-form-field>
-            <mat-label>Image</mat-label>
-            <input
-              placeholder="Image"
-              formControlName="image"
-              matInput
-              type="text"
-            />
-            <div
-              class="messages"
-              *ngIf="imageField?.touched && imageField?.invalid"
-            >
-            </div>
-          </mat-form-field>
+          <img *ngIf="imageField?.value"  [src]="imageField?.value"/>
+          <input (change)="uploadFile2($event)" type="file" placeholder="image">
+          <mat-progress-bar mode="determinate" [value]="progressBar"></mat-progress-bar>
           <mat-error *ngIf="imageField?.hasError('required')">
             Este campo es requerido
           </mat-error>

@@ -3,6 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  firebase: {
+    projectId: 'angularform-6a215',
+    appId: '1:941995601410:web:57eeefc072ad1e36d3811b',
+    storageBucket: 'angularform-6a215.appspot.com',
+    locationId: 'us-central',
+    apiKey: 'AIzaSyBeWjLs8qhKYPSD7fiDGz_W9-c_FZdyWFs',
+    authDomain: 'angularform-6a215.firebaseapp.com',
+    messagingSenderId: '941995601410',
+  },
   production: false,
   // API_URL: 'https://young-sands-07814.herokuapp.com',
   // ultima usada 'https://damp-spire-59848.herokuapp.com

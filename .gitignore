@@ -170,3 +170,8 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/angular,linux,windows,macos,visualstudiocode
+
+# Firebase
+.firebase
+*-debug.log
+.runtimeconfig.json

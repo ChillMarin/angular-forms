@@ -15,6 +15,11 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatIconModule} from '@angular/material/icon';
 
+//firebase
+import { environment } from 'src/environments/environment.prod';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { provideStorage,getStorage } from '@angular/fire/storage';
+
 @NgModule({
   declarations: [AppComponent, NotFoundComponent],
   imports: [
@@ -23,7 +28,9 @@ import {MatIconModule} from '@angular/material/icon';
     HttpClientModule,
     QuicklinkModule,
     BrowserAnimationsModule,
-    MatIconModule
+    MatIconModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideStorage(() => getStorage()),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TimeInterceptor, multi: true },
