@@ -29,7 +29,10 @@
         <div class="col-xs">
           <img *ngIf="imageField?.value"  [src]="imageField?.value"/>
           <input (change)="uploadFile2($event)" type="file" placeholder="image">
-          <mat-progress-bar mode="determinate" [value]="progressBar"></mat-progress-bar>
+          <div *ngIf="mostrarBarra" style="width: 400px;">
+            <mat-progress-bar *ngIf="!status" mode="indeterminate"></mat-progress-bar>
+            <mat-progress-bar *ngIf="status" mode="determinate" value="100"></mat-progress-bar>
+          </div>
           <mat-error *ngIf="imageField?.hasError('required')">
             Este campo es requerido
           </mat-error>
