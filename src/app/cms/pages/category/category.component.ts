@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoriesService } from 'src/app/services/categories.service';
-import { map, Observable, BehaviorSubject } from 'rxjs';
+import { map, Observable, BehaviorSubject, first } from 'rxjs';
+import { MyValidators } from 'src/app/shared/utils/validators';
+
+import { Category } from 'src/app/models/category.model';
 //firebase
 import {
   Storage,
@@ -27,6 +30,9 @@ export class CategoryComponent implements OnInit {
   progresbarObs = new BehaviorSubject<number>(0);
   progresbarObs$ = this.progresbarObs.asObservable();
 
+  categories: Category[] = [];
+  existeCategoria: boolean | null = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -40,7 +46,12 @@ export class CategoryComponent implements OnInit {
 
   private buildForm() {
     this.form = this.formBuilder.group({
-      name: ['', Validators.required],
+      //como tenemos 1 sola validacion asincrona no es necesario meterlas en un array y le tengo que mandar el servicio para que lo pueda ejectutar
+      name: [
+        '',
+        [Validators.required, Validators.minLength(4)],
+        MyValidators.validateCategory(this.categoriesService),
+      ],
       image: ['', Validators.required],
     });
   }
@@ -67,7 +78,7 @@ export class CategoryComponent implements OnInit {
   }
 
   uploadFile2(event: any) {
-    this.mostrarBarra=true;
+    this.mostrarBarra = true;
 
     const image = event.target.files[0];
     const name = image.name;
@@ -84,15 +95,15 @@ export class CategoryComponent implements OnInit {
         // en el snapshot podemos ver el progreso de la subida
         const progreso =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          this.updateprogress(progreso);
-        console.log('Upload is ' + progreso+ '% done');
+        this.updateprogress(progreso);
+        console.log('Upload is ' + progreso + '% done');
         switch (snapshot.state) {
           case 'paused':
             console.log('Upload is paused');
             break;
           case 'running':
             this.progressBar =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             console.log('Upload is running');
             break;
         }
@@ -103,10 +114,11 @@ export class CategoryComponent implements OnInit {
       () => {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-        this.status=true;
-        this.progressBar=100;
+        this.status = true;
+        this.progressBar = 100;
         getDownloadURL(task.snapshot.ref).then((downloadURL) => {
           console.log('File available at', downloadURL);
+          this.imageField?.setValue(downloadURL);
         });
       }
     );
@@ -140,6 +152,27 @@ export class CategoryComponent implements OnInit {
     });
   }
 
+  getAllCategories() {
+    this.categoriesService
+      .getAll()
+      .pipe(first())
+      .subscribe((categories) => {
+        this.categories = categories;
+      });
+  }
+
+  checkCategory(name: string): boolean {
+    this.getAllCategories();
+    this.categories.filter((category) => {
+      if (category.name == name) {
+        return true;
+      }
+      return false;
+      console.log('category', category);
+    });
+    return false;
+  }
+
   get nameField() {
     return this.form.get('name');
   }
@@ -148,7 +181,7 @@ export class CategoryComponent implements OnInit {
     return this.form.get('image');
   }
 
-  updateprogress(progreso:number){
-    this.progressBar=progreso;
+  updateprogress(progreso: number) {
+    this.progressBar = progreso;
   }
 }

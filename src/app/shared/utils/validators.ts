@@ -1,4 +1,6 @@
 import { AbstractControl } from '@angular/forms';
+import { of } from 'rxjs';
+import { CategoriesService } from 'src/app/services/categories.service';
 
 export class MyValidators { 
 
@@ -28,6 +30,24 @@ export class MyValidators {
       return {match_password: true};
     }
     return null;
+  }
+
+  //validar categoria
+  // y recibidmos como parametro el servicio de categori service para poder usarlo, ojo esto no es una inyeccion de dependencias
+  static validateCategory(service: CategoriesService) {
+    console.log('llegue al validtor');
+    
+    return (control: AbstractControl) => {
+      console.log('llegue al abstracControl');
+      
+      //assigno en un variable el valor del input (que seria el nombre de la categoria)
+      const value = control.value;
+      // llamo al metodo que me devuelve la categoria
+      if(service.checkCategory(value)){
+        return of ({category_exist: true});
+      }
+      return of (null)
+    };
   }
 
 }
