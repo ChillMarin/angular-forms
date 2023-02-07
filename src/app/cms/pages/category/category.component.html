@@ -40,7 +40,10 @@
     </mat-card-content>
     <mat-card-actions>
       <!-- Luego como en el from le pusimos ngSubmit save es qeu llama la funcion -->
-      <button type="submit">Guardar categoria</button>
+      <button type="submit">
+        <span *ngIf="!categoryId">Crear Categoria</span>
+        <span *ngIf="categoryId">Editar Categoria</span>
+      </button>
     </mat-card-actions>
   </mat-card>
 </form>

@@ -72,16 +72,30 @@ export class CategoryComponent implements OnInit {
   save() {
     if (this.form.valid) {
       //console.log(this.form.value);
-      this.categoriesService
-        .createCategory(this.form.value)
-        .subscribe((category) => {
-          console.log(category, 'Marcel');
-          // Segun el profe es para que luego de creada la category redireccione a la lista de categoria q aun no tenemos desarrollada
-          //this.router.navigate(['./cms/category']);
-        });
+      if(this.categoryId){
+        this.updateCategory();
+      } else{
+        this.createCategory();
+      }
     } else {
       this.form.markAllAsTouched();
     }
+  }
+
+  private createCategory(){
+    const category: Category = this.form.value;
+    this.categoriesService.createCategory(category).subscribe((newCategory)=>{
+      console.log('newCategory',newCategory);
+      this.router.navigate(['./cms/grid']);
+    })
+  }
+
+  private updateCategory(){
+    const category: Category = this.form.value;
+    this.categoriesService.updateCategory(this.categoryId,category).subscribe((newCategory)=>{
+      console.log('newCategory',newCategory);
+      this.router.navigate(['./cms/grid']);
+    })
   }
 
   private getCategory(){
