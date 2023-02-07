@@ -32,6 +32,10 @@ const routes: Routes = [
       {
         path: 'category',
         component: CategoryComponent,
+      },
+      {
+        path: 'grid/edit/:id',
+        component: CategoryComponent,
       }
     ]
   }

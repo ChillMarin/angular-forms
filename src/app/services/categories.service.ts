@@ -32,6 +32,10 @@ export class CategoriesService {
     return this.http.post<Category>(this.apiNueva, data);
   }
 
+  getCategory(id:string){
+    return this.http.get<Category>(`${this.apiNueva}/${id}`);
+  }
+
   updateCategory(id: string, data: Partial<Category>){
     return this.http.put<Category>(`${this.apiNueva}/${id}`, data);
   }

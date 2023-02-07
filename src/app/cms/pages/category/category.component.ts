@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { map, Observable, BehaviorSubject, first } from 'rxjs';
@@ -33,16 +33,29 @@ export class CategoryComponent implements OnInit {
   categories: Category[] = [];
   existeCategoria: boolean | null = false;
 
+  categoryId:string ='';
+
   constructor(
     private formBuilder: FormBuilder,
+    // poder hacer rediccion
     private router: Router,
     private categoriesService: CategoriesService,
-    private storage: Storage
+    private storage: Storage,
+    //poder leer los parametros que vienen en la ruta
+    private route:ActivatedRoute
   ) {
     this.buildForm();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // nos suscribimos a la ruta y estamos escuchandola cada vez que cambie por eso nos subscribimos
+    this.route.params.subscribe((params: Params)=>{
+      this.categoryId = params['id'];
+      if(this.categoryId){
+        this.getCategory();
+      }
+    })
+  }
 
   private buildForm() {
     this.form = this.formBuilder.group({
@@ -69,6 +82,17 @@ export class CategoryComponent implements OnInit {
     } else {
       this.form.markAllAsTouched();
     }
+  }
+
+  private getCategory(){
+    this.categoriesService.getCategory(this.categoryId).subscribe((category)=>{
+      // enviamos toda la informacion de la categoria al formulario, solo tiene que tener los mismos valores que nuestro from group
+      this.form.patchValue(category);
+      console.log('categoryQSolicite',category);
+      //tambien esta la opcion de setear los valores 1x1 o personalizados haciendo lo siguiente
+      //this.form.get('name')?.setValue(category.name);
+      //this.form.get('image')?.setValue(category.image);
+    })
   }
 
   uploadFile(event: any) {
@@ -119,6 +143,8 @@ export class CategoryComponent implements OnInit {
         getDownloadURL(task.snapshot.ref).then((downloadURL) => {
           console.log('File available at', downloadURL);
           this.imageField?.setValue(downloadURL);
+          // tuve que llamar a este metodo para que me mostrara la imagen justo apenas se subiera porque no se porque la mostraba luego que le daba al boton de enviar formulario
+          this.getImage(name);
         });
       }
     );
