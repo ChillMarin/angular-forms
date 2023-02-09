@@ -41,7 +41,9 @@
             <p *ngIf="priceField?.hasError('price_invalid')">
               no te debes pasar de 10000
             </p>
-            <p *ngIf="priceField?.hasError('required')">el campo es requerido</p>
+            <p *ngIf="priceField?.hasError('required')">
+              el campo es requerido
+            </p>
           </div>
         </div>
       </div>
@@ -56,21 +58,25 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row">
-        <div class="col-xs">
-          <img *ngIf="imageField?.value"  [src]="imageField?.value"/>
+      <div >
+        <div>
+          <img *ngIf="imageField?.value" [src]="imageField?.value" />
           <input type="file" (change)="uploadFile($event)" />
         </div>
       </div>
       <div class="row">
         <div class="col-xs">
-          <mat-form-field>
-            <input
-              placeholder="Category"
-              formControlName="categoryId"
-              matInput
-              type="number"
-            />
+          <!-- seleccion de categorias asincronas -->
+          <mat-form-field appearance="fill">
+            <mat-label>Categorias a seleccionar</mat-label>
+            <select matNativeControl formControlName="categoryId">
+              <option
+                *ngFor="let category of categories"
+                [value]="category.id"
+              >
+                {{ category.name }}
+              </option>
+            </select>
           </mat-form-field>
         </div>
       </div>

@@ -21,6 +21,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatTableModule} from '@angular/material/table';
 import { ProductCreateComponent } from './pages/products/components/product-create/product-create.component';
 import { ProductEditComponent } from './pages/products/components/product-edit/product-edit.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ProductEditComponent } from './pages/products/components/product-edit/p
     MatCardModule,
     MatButtonModule,
     MatProgressBarModule,
-    MatTableModule
+    MatTableModule,
+    MatSelectModule
   ]
 })
 export class CmsModule { }

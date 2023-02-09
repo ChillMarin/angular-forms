@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products.service';
 import { MyValidators } from 'src/app/shared/utils/validators';
-
+import { CategoriesService } from 'src/app/services/categories.service';
 //firebase
 import {
   Storage,
@@ -14,6 +14,8 @@ import {
   StorageReference,
   uploadBytesResumable,
 } from '@angular/fire/storage';
+import { Category } from 'src/app/models/category.model';
+
 
 @Component({
   selector: 'app-product-create',
@@ -23,6 +25,8 @@ import {
 export class ProductCreateComponent {
   form!: FormGroup;
   urlImagen ="";
+  //listado de categorias
+  categories: Category[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,11 +34,13 @@ export class ProductCreateComponent {
     private router: Router,
     //private storage: AngularFireStorage
     private storage: Storage,
+    private categoriesService: CategoriesService
   ) {
     this.buildForm();
   }
 
   ngOnInit() {
+    this.getCategories();
   }
 
   private buildForm() {
@@ -57,7 +63,7 @@ export class ProductCreateComponent {
       this.productsService.create(product)
       .subscribe((newProduct) => {
         console.log(newProduct);
-        this.router.navigate(['/cms/products']);
+        this.router.navigate(['/cms/product']);
       });
     }
   }
@@ -122,6 +128,13 @@ export class ProductCreateComponent {
         console.log(url);
         this.urlImagen=url;
       }
+    });
+  }
+
+  private getCategories() {
+    this.categoriesService.getAll()
+    .subscribe((data) => {
+      this.categories = data;
     });
   }
 
