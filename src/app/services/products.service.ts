@@ -13,6 +13,7 @@ import { Product, CreateProductDTO, UpdateProductDTO } from '../models/product.m
 })
 export class ProductsService {
   private apiUrl = `${environment.API_URL}/api`;
+  private apiNueva = 'https://api.escuelajs.co/api/v1'
 
   constructor( private http: HttpClient) { }
 
@@ -26,7 +27,7 @@ export class ProductsService {
     }
     // el map es agarra los valores del observable para transformarlos y products es la data que nos estan enviando o que estamos recibiendo y el 2do map es el nativo de javascript ojo el 1er map es el que importamos de rxjs
     //Aqui lo que hacemos es agarrar la data y agregarle un nuevo campo llamado taxes que es el iva del producto eso es lo qeu llamamos (Transformacion de datos)
-    return this.http.get<Product[]>(`${this.apiUrl}/products`, { params })
+    return this.http.get<Product[]>(`${this.apiNueva}/products`, { params })
     .pipe(
       retry(3),
       map(products => products.map(item => {
@@ -70,7 +71,7 @@ export class ProductsService {
 
   create(data: CreateProductDTO){
     //aqui lo tipamos como 1 producto y le pasamos el objeto que creamos en el componente y luego recibimos la respuesta del servidor como 1 Producto
-    return this.http.post<Product>(this.apiUrl, data);
+    return this.http.post<Product>(`${this.apiNueva}/products`, data);
   }
 
   update(id: string, dto:UpdateProductDTO){

@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { TasksComponent } from './pages/tasks/tasks.component';
+import { ProductsAdminComponent } from './pages/products/tasks.component';
 import { GridComponent } from './pages/grid/grid.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { BasicFormComponent } from './components/basic-form/basic-form.component';
 import { CategoryComponent } from './pages/category/category.component';
+import { ProductCreateComponent } from './pages/products/components/product-create/product-create.component';
+import { ProductEditComponent } from './pages/products/components/product-edit/product-edit.component';
 
 const routes: Routes = [
   {
@@ -22,8 +24,16 @@ const routes: Routes = [
         component: GridComponent,
       },
       {
-        path: 'tasks',
-        component: TasksComponent,
+        path: 'product',
+        component: ProductsAdminComponent,
+      },
+      {
+        path: 'product/create',
+        component: ProductCreateComponent,
+      },
+      {
+        path: 'product/edit/:id',
+        component: ProductEditComponent,
       },
       {
         path: 'basic-form',
