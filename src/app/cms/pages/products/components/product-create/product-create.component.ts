@@ -57,14 +57,15 @@ export class ProductCreateComponent {
     event.preventDefault();
     if (this.form.valid) {
       const product = this.form.value;
-      product.images = [
-        this.urlImagen,
-      ]
-      this.productsService.create(product)
-      .subscribe((newProduct) => {
-        console.log(newProduct);
-        this.router.navigate(['/cms/product']);
-      });
+      console.log(product);
+      // product.images = [
+      //   this.urlImagen,
+      // ]
+      // this.productsService.create(product)
+      // .subscribe((newProduct) => {
+      //   console.log(newProduct);
+      //   this.router.navigate(['/cms/product']);
+      // });
     }
   }
 
