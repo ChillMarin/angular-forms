@@ -41,7 +41,7 @@ export class ProductsService {
 
   getProduct(id: string) {
     //aqui lo tipamos como 1 producto
-    return this.http.get<Product>(`${this.apiUrl}/products/${id}`)
+    return this.http.get<Product>(`${this.apiNueva}/products/${id}`)
     .pipe(
      catchError((error: HttpErrorResponse) => {
       if (error.status === 500){

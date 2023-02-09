@@ -40,6 +40,10 @@ export class ProductEditComponent implements OnInit {
       .subscribe(product => {
         this.form.patchValue({
           ...product,
+          category:{
+            id: product.category.id,
+            name: product.category.name
+          },
           // para enviar al backedn el estado le colocamos un state por defecto el de la posicion 2
           state: this.states[2]
         });
@@ -67,7 +71,7 @@ export class ProductEditComponent implements OnInit {
       price: ['', [Validators.required, MyValidators.isPriceValid]],
       image: [''],
       description: ['', [Validators.required]],
-      categoryId: ['', [Validators.required]],
+      category: ['', [Validators.required]],
       state: ['', [Validators.required]],
     });
   }
