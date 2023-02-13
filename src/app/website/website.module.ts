@@ -23,7 +23,9 @@ import {MatFormFieldModule} from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
-import {MatRadioModule} from '@angular/material/radio'
+import {MatRadioModule} from '@angular/material/radio';
+import { OrderComponent } from './pages/order/order.component'
+import {MatStepperModule} from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import {MatRadioModule} from '@angular/material/radio'
     ProductDetailComponent,
     LayoutComponent,
     ProfileComponent,
+    OrderComponent,
   ],
   imports: [
     CommonModule,
@@ -49,7 +52,8 @@ import {MatRadioModule} from '@angular/material/radio'
     MatCardModule,
     FormsModule,
     ReactiveFormsModule,
-    MatRadioModule
+    MatRadioModule,
+    MatStepperModule
   ],
 })
 export class WebsiteModule {}

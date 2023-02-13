@@ -12,6 +12,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 
 import { AuthGuard } from '../guards/auth.guard';
 import { ExitGuard } from '../guards/exit.guard';
+import { OrderComponent } from './pages/order/order.component';
 
 const routes: Routes = [
   {
@@ -58,6 +59,10 @@ const routes: Routes = [
         path: 'product/:id',
         component: ProductDetailComponent,
       },
+      {
+        path: 'order',
+        component: OrderComponent,
+      }
     ],
   },
 ];

@@ -30,22 +30,24 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     //aqui obtemos el token para saber si el usuario esta logeado
-    // const token = this.tokenService.getToken();
-    // if (!token) {
-    //   this.router.navigate(['/']);
-    //   return false
-    // }
-    // return true;
+    const token = this.tokenService.getToken();
+    if (!token) {
+      this.router.navigate(['/']);
+      return false;
+    }
+    return true;
 
+
+  
     //aqui usamos el servicio de auth para saber si el usuario esta logeado
-    return this.authService.user$.pipe(
-      map((user) => {
-        if (!user) {
-          this.router.navigate(['/']);
-          return false;
-        }
-        return true;
-      })
-    );
+    // return this.authService.user$.pipe(
+    //   map((user) => {
+    //     if (!user) {
+    //       this.router.navigate(['/']);
+    //       return false;
+    //     }
+    //     return true;
+    //   })
+    // );
   }
 }
