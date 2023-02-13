@@ -8,6 +8,7 @@ import { ProductsComponent } from './components/products/products.component';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
 import { HighlightDirective } from './directives/highlight.directive';
 import { ImgComponent } from './components/img/img.component';
+import { StepperComponent } from './components/stepper/stepper.component';
 
 
 
@@ -17,7 +18,8 @@ import { ImgComponent } from './components/img/img.component';
     ProductsComponent,
     TimeAgoPipe,
     HighlightDirective,
-    ImgComponent
+    ImgComponent,
+    StepperComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +31,8 @@ import { ImgComponent } from './components/img/img.component';
     ProductsComponent,
     TimeAgoPipe,
     HighlightDirective,
-    ImgComponent
+    ImgComponent,
+    StepperComponent
   ]
 })
 export class SharedModule { }

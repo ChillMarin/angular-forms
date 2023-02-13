@@ -58,7 +58,7 @@
           </mat-form-field>
         </div>
       </div>
-      <div >
+      <div>
         <div>
           <img *ngIf="imageField?.value" [src]="imageField?.value" />
           <input type="file" (change)="uploadFile($event)" />
@@ -70,14 +70,18 @@
           <mat-form-field appearance="fill">
             <mat-label>Categorias a seleccionar</mat-label>
             <select matNativeControl formControlName="categoryId">
-              <option
-                *ngFor="let category of categories"
-                [value]="category.id"
-              >
+              <option *ngFor="let category of categories" [value]="category.id">
                 {{ category.name }}
               </option>
             </select>
           </mat-form-field>
+        </div>
+      </div>
+      <!-- boton de agregar al stock -->
+      <div class="row">
+        <div class="col-xs">
+          <!-- al agregarle el formControlName de stock automaticamente el va estar escuchando como si lo hicieramos de forma manual con un input y output, pero para lograr esto hay que hacer una implemtancion en el componente stepper -->
+          <app-stepper formControlName="stock"></app-stepper>
         </div>
       </div>
     </mat-card-content>

@@ -22,6 +22,7 @@ import {MatTableModule} from '@angular/material/table';
 import { ProductCreateComponent } from './pages/products/components/product-create/product-create.component';
 import { ProductEditComponent } from './pages/products/components/product-edit/product-edit.component';
 import {MatSelectModule} from '@angular/material/select';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatButtonModule,
     MatProgressBarModule,
     MatTableModule,
-    MatSelectModule
+    MatSelectModule,
+    SharedModule
   ]
 })
 export class CmsModule { }

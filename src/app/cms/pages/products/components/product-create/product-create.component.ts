@@ -50,7 +50,17 @@ export class ProductCreateComponent {
       images: ['', Validators.required],
       categoryId: ['', Validators.required],
       description: ['', [Validators.required, Validators.minLength(10)]],
+      stock:['0', Validators.required]
     });
+
+    this.form.get('stock')?.valueChanges.subscribe((value) => {
+      console.log(value);
+    });
+
+    // this.form.valueChanges.subscribe((value) => {
+    //   console.log(value);
+    // }
+    // );
   }
 
   saveProduct(event: Event) {

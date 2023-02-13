@@ -53,7 +53,7 @@ import {MatStepperModule} from '@angular/material/stepper';
     FormsModule,
     ReactiveFormsModule,
     MatRadioModule,
-    MatStepperModule
+    MatStepperModule,
   ],
 })
 export class WebsiteModule {}
