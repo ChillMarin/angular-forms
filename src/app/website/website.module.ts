@@ -26,6 +26,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatRadioModule} from '@angular/material/radio';
 import { OrderComponent } from './pages/order/order.component'
 import {MatStepperModule} from '@angular/material/stepper';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {MatStepperModule} from '@angular/material/stepper';
     LayoutComponent,
     ProfileComponent,
     OrderComponent,
+    SearchComponent,
   ],
   imports: [
     CommonModule,
